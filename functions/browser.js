@@ -1,12 +1,6 @@
 const fp = require('lodash/fp');
 const puppeteer = require('puppeteer');
 
-function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
-
 const shouldSkip = fp.includes(['font', 'image', 'stylesheet', 'script']);
 
 function Browser() {
@@ -29,9 +23,6 @@ function Browser() {
 
     const page = await browser.newPage();
 
-    await page.setExtraHTTPHeaders({
-      'Accept-Language': 'en-US,en;q=0.9'
-    });
     await page.setRequestInterception(true)
     page.on('request', (request) => {
       const type = request.resourceType()
@@ -48,6 +39,7 @@ function Browser() {
       if (text.includes('net::ERR_FAILED')) {
         return
       }
+      // TODO: stop if status code 429
       console.log(text)
     })
     
@@ -63,7 +55,6 @@ function Browser() {
     };
 
     const page = await open(url, options);
-    // await sleep(5000);
 
     return page;
   }

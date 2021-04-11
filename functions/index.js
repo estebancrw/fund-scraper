@@ -10,10 +10,10 @@ const firestore = admin.firestore();
 const poolRepository = PoolRepository(firestore);
 
 const runtimeOptions = {
-  timeoutSeconds: 500,
-  memory: "4GB",
+  timeoutSeconds: 300,
+  memory: "2GB",
 };
-const schedule = "every 7 hours from 06:00 to 20:00";
+const schedule = "every day 06:00";
 const timezone = "America/Mexico_City";
 
 const vfatPools = (startSlice, endSlice) => async (context) => {

@@ -5,6 +5,7 @@ const shouldSkip = fp.includes(['font', 'image', 'stylesheet', 'script']);
 
 function Browser() {
   let browser;
+  let tooManyRequests = false;
 
   const launch = async () => {
     const params = {
@@ -34,15 +35,28 @@ function Browser() {
       }
     })
 
+    page.on('response', (response) => {
+      const status = response.status()
+
+      if (status == 429) {
+        tooManyRequests = true
+        console.error('429 Too Many Requests')
+
+        return
+      }
+    })
+
     page.on('console', (msg) => {
       const text = msg.text()
       if (text.includes('net::ERR_FAILED')) {
         return
       }
-      // TODO: stop if status code 429
-      console.log(text)
     })
-    
+
+    if (tooManyRequests) {
+      return
+    }
+
     await page.goto(url, options);
 
     return page;

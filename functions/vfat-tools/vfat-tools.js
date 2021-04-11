@@ -20,14 +20,18 @@ function VfatTools({browser, wallet}) {
     console.log(`Pool provider ${link}`);
     const urlPoolProvider = `${url}/${link}?addr=${wallet}`;
     const page = await browser.openSlow(urlPoolProvider);
-    const pools = await page.evaluate(queryAllPools, link);
+
+    let pools = []
+    if (page) {
+      pools = await page.evaluate(queryAllPools, link);
+    }
 
     return pools;
   };
 
   const getAllPools = async (links) => {
     const poolsP = links.map(
-        (link) => limit(() => getPools(link)),
+      (link) => limit(() => getPools(link)),
     );
     const pools = await Promise.all(poolsP);
 

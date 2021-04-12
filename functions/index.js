@@ -11,7 +11,7 @@ const poolRepository = PoolRepository(firestore);
 
 const runtimeOptions = {
   timeoutSeconds: 300,
-  memory: "2GB",
+  memory: "4GB",
 };
 const schedule = "every day 06:00";
 const timezone = "America/Mexico_City";

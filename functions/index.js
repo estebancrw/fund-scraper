@@ -10,7 +10,7 @@ const firestore = admin.firestore();
 const poolRepository = PoolRepository(firestore);
 
 const runtimeOptions = {
-  timeoutSeconds: 300,
+  timeoutSeconds: 400,
   memory: "4GB",
 };
 const schedule = "every day 06:00";
@@ -36,35 +36,43 @@ const vfatPools = (startSlice, endSlice) => async (context) => {
   };
 };
 
-const vfatPools0To25 = vfatPools(0, 25);
-const vfatPools25To50 = vfatPools(25, 50);
-const vfatPools50To75 = vfatPools(50, 75);
-const vfatPools75To100 = vfatPools(75, 100);
+const vfatPools0To20 = vfatPools(0, 20);
+const vfatPools20To40 = vfatPools(20, 40);
+const vfatPools40To60 = vfatPools(40, 60);
+const vfatPools60To80 = vfatPools(60, 80);
+const vfatPools80To100 = vfatPools(80, 100);
 
-exports.pools0To25 = functions
+exports.vfatPools0To20 = functions
   .runWith(runtimeOptions)
   .pubsub
   .schedule(schedule)
   .timeZone(timezone)
-  .onRun(vfatPools0To25);
+  .onRun(vfatPools0To20);
 
-exports.pools25To50 = functions
+exports.vfatPools20To40 = functions
   .runWith(runtimeOptions)
   .pubsub
   .schedule(schedule)
   .timeZone(timezone)
-  .onRun(vfatPools25To50);
+  .onRun(vfatPools20To40);
 
-exports.pools50To75 = functions
+exports.vfatPools40To60 = functions
   .runWith(runtimeOptions)
   .pubsub
   .schedule(schedule)
   .timeZone(timezone)
-  .onRun(vfatPools50To75);
+  .onRun(vfatPools40To60);
 
-exports.pools75To100 = functions
+exports.vfatPools60To80 = functions
   .runWith(runtimeOptions)
   .pubsub
   .schedule(schedule)
   .timeZone(timezone)
-  .onRun(vfatPools75To100);
+  .onRun(vfatPools60To80);
+
+exports.vfatPools80To100 = functions
+  .runWith(runtimeOptions)
+  .pubsub
+  .schedule(schedule)
+  .timeZone(timezone)
+  .onRun(vfatPools80To100);

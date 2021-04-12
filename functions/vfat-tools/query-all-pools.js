@@ -18,10 +18,15 @@ function queryAllPools(project) {
       .map((hrefElement) => {
         const nameText = hrefElement.textContent;
         let aprText = "0";
+        let priceTvlText = "0";
 
         let element = hrefElement.nextSibling;
         while (element) {
-          const text = element.textContent;
+          const text = element.textContent.trim();
+
+          if (text.startsWith("Price")) {
+            priceTvlText = text;
+          }
 
           if (text.startsWith("APR")) {
             aprText = text;
@@ -34,11 +39,14 @@ function queryAllPools(project) {
         const name = nameText.replace("/", "-");
         const aprTextYear = aprText.split(" ").pop();
         const aprYear = parseFloat(aprTextYear);
+        const tvlText = priceTvlText.split(" ").pop().replace(/[$,]/g, '');
+        const tvl = parseFloat(tvlText);
 
         return {
           aprYear,
           name,
           project,
+          tvl,
         };
       });
 

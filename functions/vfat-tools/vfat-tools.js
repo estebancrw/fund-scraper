@@ -30,8 +30,15 @@ function VfatTools({browser, wallet}) {
   };
 
   const getAllPools = async (links) => {
-    const poolsP = links.map(
-      (link) => limit(() => getPools(link)),
+    const poolsP = links.map((link) =>
+      limit(() =>
+        getPools(link).catch((error) => {
+          console.error(`Error at ${link}`);
+          console.error(error);
+
+          return [];
+        })
+      )
     );
     const pools = await Promise.all(poolsP);
 

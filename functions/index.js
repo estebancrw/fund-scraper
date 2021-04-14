@@ -36,43 +36,33 @@ const vfatPools = (startSlice, endSlice) => async (context) => {
   };
 };
 
-const vfatPools0To20 = vfatPools(0, 20);
-const vfatPools20To40 = vfatPools(20, 40);
-const vfatPools40To60 = vfatPools(40, 60);
-const vfatPools60To80 = vfatPools(60, 80);
-const vfatPools80To100 = vfatPools(80, 100);
+const vfatPools0To10 = vfatPools(0, 10);
+const vfatPools10To20 = vfatPools(10, 20);
+const vfatPools20To30 = vfatPools(20, 30);
+const vfatPools30To40 = vfatPools(30, 40);
+const vfatPools40To50 = vfatPools(40, 50);
+const vfatPools50To60 = vfatPools(50, 60);
+const vfatPools60To70 = vfatPools(60, 70);
+const vfatPools70To80 = vfatPools(70, 80);
+const vfatPools80To90 = vfatPools(80, 90);
+const vfatPools90To100 = vfatPools(90, 100);
 
-exports.vfatPools0To20 = functions
-  .runWith(runtimeOptions)
-  .pubsub
-  .schedule(schedule)
-  .timeZone(timezone)
-  .onRun(vfatPools0To20);
+const firebaseFunction = (fn) => (
+  functions
+    .runWith(runtimeOptions)
+    .pubsub
+    .schedule(schedule)
+    .timeZone(timezone)
+    .onRun(fn)
+)
 
-exports.vfatPools20To40 = functions
-  .runWith(runtimeOptions)
-  .pubsub
-  .schedule(schedule)
-  .timeZone(timezone)
-  .onRun(vfatPools20To40);
-
-exports.vfatPools40To60 = functions
-  .runWith(runtimeOptions)
-  .pubsub
-  .schedule(schedule)
-  .timeZone(timezone)
-  .onRun(vfatPools40To60);
-
-exports.vfatPools60To80 = functions
-  .runWith(runtimeOptions)
-  .pubsub
-  .schedule(schedule)
-  .timeZone(timezone)
-  .onRun(vfatPools60To80);
-
-exports.vfatPools80To100 = functions
-  .runWith(runtimeOptions)
-  .pubsub
-  .schedule(schedule)
-  .timeZone(timezone)
-  .onRun(vfatPools80To100);
+exports.vfatPools0To10 = firebaseFunction(vfatPools0To10)
+exports.vfatPools10To20 = firebaseFunction(vfatPools10To20)
+exports.vfatPools20To30 = firebaseFunction(vfatPools20To30)
+exports.vfatPools30To40 = firebaseFunction(vfatPools30To40)
+exports.vfatPools40To50 = firebaseFunction(vfatPools40To50)
+exports.vfatPools50To60 = firebaseFunction(vfatPools50To60)
+exports.vfatPools60To70 = firebaseFunction(vfatPools60To70)
+exports.vfatPools70To80 = firebaseFunction(vfatPools70To80)
+exports.vfatPools80To90 = firebaseFunction(vfatPools80To90)
+exports.vfatPools90To100 = firebaseFunction(vfatPools90To100)

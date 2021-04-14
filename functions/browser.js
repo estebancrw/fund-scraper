@@ -22,6 +22,10 @@ function Browser() {
       ...pageOptions,
     };
 
+    if (tooManyRequests) {
+      return
+    }
+
     const page = await browser.newPage();
 
     await page.setRequestInterception(true)
@@ -52,10 +56,6 @@ function Browser() {
         return
       }
     })
-
-    if (tooManyRequests) {
-      return
-    }
 
     await page.goto(url, options);
 

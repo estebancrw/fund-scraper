@@ -8,11 +8,13 @@ function queryAllPools(project) {
   );
 
   const pools = hrefElements
-  // only if it doesn't end with ']' nor is Etherscan
+  // only if it doesn't end with ']' nor is Etherscan nor starts with Staking
       .filter((hrefElement) => {
         const href = hrefElement.textContent;
 
-        return !href.endsWith("]") && href !== "Etherscan" && href !== "Staking Contract";
+        return !href.endsWith("]")
+          && href !== "Etherscan"
+          && !href.startsWith("Staking");
       })
   // get pool content
       .map((hrefElement) => {

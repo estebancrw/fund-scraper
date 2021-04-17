@@ -6,3 +6,7 @@ node_modules/
 
 // artifacts
 dist/
+.nuxt/
+
+// environment
+.env

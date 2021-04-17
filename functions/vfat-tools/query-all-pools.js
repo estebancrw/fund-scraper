@@ -21,6 +21,7 @@ function queryAllPools(project) {
         const nameText = hrefElement.textContent;
         let aprText = "0";
         let priceTvlText = "0";
+        let perWeekText = "";
 
         let element = hrefElement.nextSibling;
         while (element) {
@@ -28,6 +29,10 @@ function queryAllPools(project) {
 
           if (text.startsWith("Price")) {
             priceTvlText = text;
+          }
+
+          if (text.includes("Per Week")) {
+            perWeekText = text;
           }
 
           if (text.startsWith("APR")) {
@@ -43,11 +48,13 @@ function queryAllPools(project) {
         const aprYear = parseFloat(aprTextYear);
         const tvlText = priceTvlText.split(" ").pop().replace(/[$,]/g, '');
         const tvl = parseFloat(tvlText);
+        const rewardTokenSymbol = perWeekText.split(" ")[0];
 
         return {
           aprYear,
           name,
           project,
+          rewardTokenSymbol,
           tvl,
         };
       });
